@@ -5,7 +5,8 @@ import torch.nn as nn
 from torch import Tensor
 import torch.nn.functional as F
 import time
-import plotly.offline as py
+import plotly.plotly as py
+import plotly.offline as ol
 import plotly.graph_objs as go
 import plotly
 
@@ -154,9 +155,12 @@ class RRL(nn.Module):
                                   height=600)
 
         if filename:
-            py.plot(self.fig, filename=filename, auto_open=False)
+            ol.plot(self.fig, filename=filename, auto_open=False)
+            filename_ = filename.split('/')[-1].split('.')[0]
+            print(py.plot(self.fig, filename=filename_, auto_open=True))
 
-        py.iplot(self.fig)
+        else:
+            ol.iplot(self.fig)
 
     def plot_parameters(self, filename=None):
 
@@ -186,9 +190,12 @@ class RRL(nn.Module):
                              height=225 * cols)
 
         if filename:
-            py.plot(self.fig, filename=filename, auto_open=False)
+            ol.plot(self.fig, filename=filename, auto_open=False)
+            filename_ = filename.split('/')[-1].split('.')[0]
+            print(py.plot(self.fig, filename=filename_, auto_open=True))
 
-        py.iplot(self.fig)
+        else:
+            ol.iplot(self.fig)
 
     def _input_data(self, price_data, other_data=None):
         '''
