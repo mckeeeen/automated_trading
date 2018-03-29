@@ -168,17 +168,17 @@ class RRL(nn.Module):
         for i in range(len(self.params_seq)):
             trace.append(go.Scatter(y=self.params_seq[i]))
 
-        fig = plotly.tools.make_subplots(rows=rows, cols=cols, subplot_titles=subplot_titles)
+        self.fig = plotly.tools.make_subplots(rows=rows, cols=cols, subplot_titles=subplot_titles)
 
         index = 0
         for i in range(rows):
             for j in range(cols):
-                fig.append_trace(trace[index], i + 1, j + 1)
+                self.fig.append_trace(trace[index], i + 1, j + 1)
                 index += 1
                 if index >= len(self.params_seq):
                     break
 
-        fig['layout'].update(title='Parameters',
+        self.fig['layout'].update(title='Parameters',
                              plot_bgcolor='rgba(0,0,0,0)',
                              paper_bgcolor='rgba(0,0,0,0)',
                              showlegend=False,
@@ -188,7 +188,7 @@ class RRL(nn.Module):
         if filename:
             py.plot(self.fig, filename=filename, auto_open=False)
 
-        py.iplot(fig)
+        py.iplot(self.fig)
 
     def _input_data(self, price_data, other_data=None):
         '''
